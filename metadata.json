@@ -1,0 +1,7 @@
+{
+  "name": "StudySnap AI",
+  "description": "Snap a photo of your study material, and let AI generate an interactive quiz with audio support to help you learn.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
