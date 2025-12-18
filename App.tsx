@@ -51,13 +51,13 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-black selection:text-white">
       
       {/* Top Navigation / Header */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-40 h-16 flex items-center px-4 justify-center md:justify-start">
-        <div className="flex items-center gap-2 text-indigo-600">
-          <BrainCircuit size={28} strokeWidth={2.5} />
-          <h1 className="text-xl font-bold tracking-tight">StudySnap AI</h1>
+      <nav className="fixed top-0 w-full bg-white border-b border-gray-200 z-40 h-16 flex items-center px-4 justify-center md:justify-start">
+        <div className="flex items-center gap-3 text-black">
+          <BrainCircuit size={24} strokeWidth={2} />
+          <h1 className="text-lg font-semibold tracking-tight uppercase tracking-wider text-xs md:text-sm">Nexus Cloud | Student Bridge</h1>
         </div>
       </nav>
 
@@ -65,32 +65,33 @@ export default function App() {
         
         {/* VIEW: WELCOME */}
         {appState === AppState.WELCOME && (
-          <div className="flex flex-col items-center text-center space-y-8 animate-fade-in">
-            <div className="relative">
-              <div className="absolute inset-0 bg-indigo-500 blur-3xl opacity-20 rounded-full w-48 h-48"></div>
-              <img 
-                src="https://picsum.photos/400/300?grayscale" 
-                alt="Study" 
-                className="relative rounded-2xl shadow-2xl w-full max-w-xs object-cover aspect-[4/3] border-4 border-white"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white p-3 rounded-2xl shadow-lg border border-gray-100">
-                <Sparkles className="text-yellow-500 w-8 h-8" />
+          <div className="flex flex-col items-center text-center space-y-10 animate-fade-in w-full">
+            <div className="relative w-full max-w-sm">
+              <div className="border border-gray-200 p-2 bg-gray-50 rounded-none">
+                <img 
+                  src="https://picsum.photos/400/300?grayscale" 
+                  alt="Study" 
+                  className="w-full h-auto object-cover aspect-[4/3] filter grayscale contrast-125"
+                />
+              </div>
+              <div className="absolute -bottom-5 -right-5 bg-black text-white p-3 border border-black">
+                <Sparkles className="w-6 h-6" />
               </div>
             </div>
 
-            <div className="space-y-2 max-w-sm">
-              <h2 className="text-3xl font-bold text-gray-900">Turn Notes into Quizzes</h2>
-              <p className="text-gray-500">
-                Snap a photo of your textbook or notes. AI will create a practice test instantly.
+            <div className="space-y-4 max-w-sm">
+              <h2 className="text-4xl font-bold text-black tracking-tighter">Nexus Cloud</h2>
+              <p className="text-gray-500 font-medium">
+                Digitize your notes. Generate quizzes. Bridge the gap to mastery.
               </p>
             </div>
 
             <button 
               onClick={startFlow}
-              className="w-full max-w-xs bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3"
+              className="w-full max-w-xs bg-black hover:bg-gray-800 text-white font-medium py-4 px-8 rounded-none border border-black transition-all transform flex items-center justify-center gap-3"
             >
-              <Camera size={24} />
-              <span>Snap a Photo</span>
+              <Camera size={20} />
+              <span>SCAN NOTES</span>
             </button>
           </div>
         )}
@@ -105,20 +106,23 @@ export default function App() {
 
         {/* VIEW: CONFIG */}
         {appState === AppState.CONFIG && capturedImage && (
-          <div className="w-full bg-white rounded-3xl shadow-xl p-8 space-y-6">
-            <div className="w-full h-48 rounded-xl overflow-hidden bg-gray-100 relative mb-4 border border-gray-200">
-              <img src={capturedImage} alt="Captured" className="w-full h-full object-cover opacity-80" />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-                <span className="bg-black/50 text-white px-3 py-1 rounded-full text-xs font-medium">Image Captured</span>
+          <div className="w-full bg-white border border-gray-200 p-6 space-y-6">
+            <div className="w-full h-56 overflow-hidden bg-gray-50 relative mb-4 border border-gray-200">
+              <img src={capturedImage} alt="Captured" className="w-full h-full object-cover grayscale opacity-90" />
+              <div className="absolute bottom-4 right-4 bg-black text-white px-3 py-1 text-xs font-bold uppercase tracking-widest">
+                Source Acquired
               </div>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-gray-800">Quiz Settings</h3>
+            <div className="space-y-6">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                 <h3 className="text-lg font-bold text-black uppercase tracking-wide">Configuration</h3>
+              </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-2">
-                  Number of Questions: <span className="text-indigo-600 font-bold">{questionCount}</span>
+                <label className="block text-sm font-medium text-gray-500 mb-4 flex justify-between">
+                  <span>QUESTION COUNT</span>
+                  <span className="text-black font-bold text-lg">{questionCount}</span>
                 </label>
                 <input 
                   type="range" 
@@ -126,11 +130,10 @@ export default function App() {
                   max="10" 
                   value={questionCount} 
                   onChange={(e) => setQuestionCount(parseInt(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                  className="w-full h-1 bg-gray-200 appearance-none cursor-pointer accent-black rounded-none"
                 />
-                <div className="flex justify-between text-xs text-gray-400 mt-1">
-                  <span>1</span>
-                  <span>5</span>
+                <div className="flex justify-between text-xs text-gray-400 mt-2 font-mono">
+                  <span>01</span>
                   <span>10</span>
                 </div>
               </div>
@@ -139,16 +142,16 @@ export default function App() {
             <div className="flex gap-4 pt-4">
               <button 
                 onClick={() => setAppState(AppState.CAMERA)}
-                className="flex-1 py-3 px-4 rounded-xl border border-gray-300 text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+                className="flex-1 py-3 px-4 border border-gray-300 text-gray-600 font-medium hover:bg-gray-50 transition-colors uppercase text-sm tracking-wide rounded-none"
               >
                 Retake
               </button>
               <button 
                 onClick={handleGenerate}
-                className="flex-[2] py-3 px-4 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 shadow-lg hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2"
+                className="flex-[2] py-3 px-4 bg-black text-white font-bold hover:bg-gray-800 transition-all flex items-center justify-center gap-2 uppercase text-sm tracking-wide rounded-none"
               >
-                <Sparkles size={18} />
-                Generate Quiz
+                <BrainCircuit size={18} />
+                Generate
               </button>
             </div>
           </div>
@@ -156,17 +159,14 @@ export default function App() {
 
         {/* VIEW: GENERATING */}
         {appState === AppState.GENERATING && (
-          <div className="flex flex-col items-center justify-center text-center space-y-6">
+          <div className="flex flex-col items-center justify-center text-center space-y-8">
             <div className="relative">
-              <div className="w-20 h-20 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <BrainCircuit className="text-indigo-600 animate-pulse" size={32} />
-              </div>
+              <div className="w-24 h-24 border-2 border-gray-100 border-t-black rounded-full animate-spin"></div>
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-semibold text-gray-800">Analyzing your study material...</h3>
-              <p className="text-gray-500 max-w-xs mx-auto">
-                Gemini is reading the text and crafting {questionCount} challenging questions for you.
+              <h3 className="text-xl font-bold text-black uppercase tracking-widest">Processing</h3>
+              <p className="text-gray-400 max-w-xs mx-auto text-sm">
+                Nexus is analyzing data points to construct your assessment matrix.
               </p>
             </div>
           </div>
@@ -174,17 +174,17 @@ export default function App() {
 
         {/* VIEW: ERROR */}
         {appState === AppState.ERROR && (
-          <div className="bg-white p-8 rounded-2xl shadow-lg text-center max-w-sm">
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertCircle className="text-red-500" size={32} />
+          <div className="bg-white p-8 border border-red-200 text-center max-w-sm">
+            <div className="w-12 h-12 bg-red-50 flex items-center justify-center mx-auto mb-4 rounded-full">
+              <AlertCircle className="text-red-500" size={24} />
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Oops!</h3>
-            <p className="text-gray-600 mb-6">{errorMsg || "Something went wrong."}</p>
+            <h3 className="text-lg font-bold text-black mb-2 uppercase">System Alert</h3>
+            <p className="text-gray-600 mb-6 text-sm">{errorMsg || "An unexpected error occurred."}</p>
             <button 
               onClick={() => setAppState(AppState.CAMERA)}
-              className="w-full py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800"
+              className="w-full py-3 bg-black text-white font-medium hover:bg-gray-800 uppercase text-xs tracking-widest rounded-none"
             >
-              Try Again
+              Re-initialize
             </button>
           </div>
         )}
@@ -199,30 +199,30 @@ export default function App() {
 
         {/* VIEW: RESULT */}
         {appState === AppState.RESULT && (
-          <div className="w-full bg-white rounded-3xl shadow-xl p-8 text-center space-y-6 animate-scale-up">
-            <div className="inline-block p-4 rounded-full bg-green-100 mb-2">
-              <BookOpen className="w-12 h-12 text-green-600" />
+          <div className="w-full bg-white border border-gray-200 p-8 text-center space-y-8 animate-fade-in">
+            <div className="inline-block p-4 bg-gray-50 mb-2 border border-gray-100">
+              <BookOpen className="w-8 h-8 text-black" />
             </div>
             
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-1">Quiz Complete!</h2>
-              <p className="text-gray-500">Here is how you did</p>
+              <h2 className="text-2xl font-bold text-black mb-1 uppercase tracking-tight">Session Concluded</h2>
+              <p className="text-gray-400 text-sm">Assessment data ready</p>
             </div>
 
-            <div className="py-6 border-y border-gray-100">
-              <div className="text-6xl font-black text-indigo-600 mb-2">
-                {Math.round((score / questions.length) * 100)}%
+            <div className="py-8 border-y border-dashed border-gray-200">
+              <div className="text-7xl font-black text-black mb-2 tracking-tighter">
+                {Math.round((score / questions.length) * 100)}<span className="text-3xl font-thin text-gray-400">%</span>
               </div>
-              <p className="text-lg font-medium text-gray-600">
-                You got <span className="text-gray-900">{score}</span> out of <span className="text-gray-900">{questions.length}</span> correct
+              <p className="text-sm font-medium text-gray-500 uppercase tracking-widest">
+                Score: {score} / {questions.length}
               </p>
             </div>
 
             <button 
               onClick={resetApp}
-              className="w-full py-4 rounded-xl bg-indigo-600 text-white font-bold text-lg hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all"
+              className="w-full py-4 bg-black text-white font-bold text-sm uppercase tracking-widest hover:bg-gray-800 transition-all rounded-none"
             >
-              Study Another Topic
+              Start New Session
             </button>
           </div>
         )}

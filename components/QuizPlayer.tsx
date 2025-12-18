@@ -112,48 +112,48 @@ export const QuizPlayer: React.FC<QuizPlayerProps> = ({ questions, onFinish }) =
   return (
     <div className="w-full max-w-2xl mx-auto p-4 flex flex-col h-full">
       {/* Header / Progress */}
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-2 text-sm font-medium text-gray-500">
-          <span>Question {currentIndex + 1} of {questions.length}</span>
-          <span className="text-indigo-600">Score: {score}</span>
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-3 text-xs font-bold uppercase tracking-widest text-gray-400">
+          <span>Question {currentIndex + 1} / {questions.length}</span>
+          <span className="text-black">Current Score: {score}</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2.5">
+        <div className="w-full bg-gray-100 h-1">
           <div 
-            className="bg-indigo-600 h-2.5 rounded-full transition-all duration-300 ease-out" 
+            className="bg-black h-1 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
           ></div>
         </div>
       </div>
 
       {/* Question Card */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 relative overflow-hidden">
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <h2 className="text-xl font-bold text-gray-800 leading-tight">
+      <div className="bg-white border border-gray-200 p-8 mb-6 relative overflow-hidden">
+        <div className="flex items-start justify-between gap-4 mb-8">
+          <h2 className="text-xl font-bold text-black leading-snug">
             {currentQuestion.text}
           </h2>
           <button 
             onClick={handlePlayAudio}
             disabled={isLoadingAudio}
-            className={`p-2 rounded-full flex-shrink-0 transition-colors ${
-              isPlayingAudio ? 'bg-indigo-100 text-indigo-600 animate-pulse' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            className={`p-2 flex-shrink-0 transition-colors border ${
+              isPlayingAudio ? 'bg-black text-white border-black animate-pulse' : 'bg-white text-black border-gray-200 hover:bg-gray-50'
             }`}
             title="Read Aloud"
           >
-            {isLoadingAudio ? <Loader2 size={20} className="animate-spin"/> : <Volume2 size={20} />}
+            {isLoadingAudio ? <Loader2 size={18} className="animate-spin"/> : <Volume2 size={18} />}
           </button>
         </div>
 
         <div className="space-y-3">
           {currentQuestion.options.map((option, index) => {
-            let optionClass = "w-full p-4 text-left border-2 rounded-xl transition-all duration-200 flex justify-between items-center ";
+            let optionClass = "w-full p-4 text-left border transition-all duration-200 flex justify-between items-center text-sm font-medium ";
             
             if (!isAnswered) {
-              optionClass += "border-gray-100 hover:border-indigo-200 hover:bg-indigo-50 text-gray-700";
+              optionClass += "border-gray-200 hover:border-black hover:bg-gray-50 text-gray-700 bg-white";
             } else {
               if (index === currentQuestion.correctIndex) {
-                optionClass += "border-green-500 bg-green-50 text-green-900";
+                optionClass += "border-green-600 bg-green-50 text-green-900";
               } else if (index === selectedOption) {
-                optionClass += "border-red-500 bg-red-50 text-red-900";
+                optionClass += "border-red-600 bg-red-50 text-red-900";
               } else {
                 optionClass += "border-gray-100 text-gray-400 opacity-60";
               }
@@ -166,12 +166,12 @@ export const QuizPlayer: React.FC<QuizPlayerProps> = ({ questions, onFinish }) =
                 disabled={isAnswered}
                 className={optionClass}
               >
-                <span className="font-medium">{option}</span>
+                <span>{option}</span>
                 {isAnswered && index === currentQuestion.correctIndex && (
-                  <CheckCircle size={20} className="text-green-500" />
+                  <CheckCircle size={18} className="text-green-600" />
                 )}
                 {isAnswered && index === selectedOption && index !== currentQuestion.correctIndex && (
-                  <XCircle size={20} className="text-red-500" />
+                  <XCircle size={18} className="text-red-600" />
                 )}
               </button>
             );
@@ -180,8 +180,8 @@ export const QuizPlayer: React.FC<QuizPlayerProps> = ({ questions, onFinish }) =
         
         {/* Explanation */}
         {isAnswered && (
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100 text-blue-900 text-sm animate-fade-in">
-            <span className="font-bold block mb-1">Explanation:</span>
+          <div className="mt-8 p-6 bg-gray-50 border-l-4 border-black text-gray-900 text-sm animate-fade-in">
+            <span className="font-bold block mb-2 uppercase text-xs tracking-wider text-gray-500">Explanation</span>
             {currentQuestion.explanation}
           </div>
         )}
@@ -192,14 +192,14 @@ export const QuizPlayer: React.FC<QuizPlayerProps> = ({ questions, onFinish }) =
         <button
           onClick={handleNext}
           disabled={!isAnswered}
-          className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all ${
+          className={`w-full py-4 font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all rounded-none ${
             isAnswered 
-              ? 'bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 hover:scale-[1.02]' 
-              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              ? 'bg-black text-white hover:bg-gray-800' 
+              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
           }`}
         >
-          {currentIndex === questions.length - 1 ? 'Finish Quiz' : 'Next Question'}
-          <ChevronRight size={20} />
+          {currentIndex === questions.length - 1 ? 'Finish Assessment' : 'Next Question'}
+          <ChevronRight size={18} />
         </button>
       </div>
     </div>
